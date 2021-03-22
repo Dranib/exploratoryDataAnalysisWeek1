@@ -1,8 +1,8 @@
-
+rm(list=ls())
 library(dplyr)
 library(lubridate)
 # load data
-there are 2075260 observations on 9 variables
+# there are 2075260 observations on 9 variables
 data<-read.table("household_power_consumption.txt",sep=";",header = TRUE)
 #transform data lists into appropriate class (date, hours,numeric)
 dataClean<-mutate(data,Date=dmy(Date))%>%mutate(Time=hms(Time))
@@ -13,3 +13,7 @@ head(dataClean)
 summary(dataClean)
 # use understandable names for dubmeters
 names(dataClean)[7:9]<-c("Kitchen","Laundry","Electric")
+
+# subset on relevant dates 2007-02-01 and 2007-02-02
+dataClean<-subset(dataClean,Date>=ymd("2007-02-01") & Date<=ymd("2007-02-02") )
+
